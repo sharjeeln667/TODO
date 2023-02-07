@@ -1,6 +1,8 @@
-import logo from "./logo.svg";
+ import logo from "./logo.svg";
 import "./App.css";
 import {useState} from "react"
+import Button from "./Component/Button";
+import Input from "./Component/Input";
 
 function App() {
   const [item , setitem] = useState("")
@@ -18,20 +20,21 @@ let additems=()=>{
 } 
 
 let delitem=(i)=>{
-  const del=add.filter((x , id )=>{
-    return i ==! id
-  })
-  setadd(del)
+  add.splice(i , 1)
+  setadd([...add])
+ 
 
 }
 let edit =(x,i)=>{
-  let pro = prompt('')
-  let val = pro== add[i]
-  setadd(val)
- 
-  
+  let edi = prompt('enter value' , add[i])
+  add[i] = edi
+  setadd([...add])
+}
 
- 
+
+let alldel=(i)=>{
+  add.splice(i)
+  setadd([...add])
 }
 
   return (
@@ -41,17 +44,15 @@ let edit =(x,i)=>{
 
         {add.map((x,i)=>{
           return (
-            <li key={i}>{x} <button onClick={( )=>delitem(i)}>del</button> <button onClick={( )=>edit(i)} >edit</button></li>
+            <li className="card" key={i}>{x} <button className="del" onClick={( )=>delitem(i)}>del</button> <button className="edit" onClick={( )=>edit(x,i)} >edit</button></li>
           )
         })}
       </ul>
 
         <input type="text" value={item} placeholder="ENTER ITEMS" onChange={handle}   /> 
-        <button onClick={additems}>ADD ITEMS</button>
+        <button className="additem" onClick={additems}>ADD ITEMS</button>
        
-        
-     
-     
+
       </header>
     </div>
   );
